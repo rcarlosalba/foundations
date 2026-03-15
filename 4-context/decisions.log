@@ -1,0 +1,28 @@
+# Architectural Decision Log (ADR)
+
+> **Maintained by:** Orchestrator Agent
+> **Pruning rule:** Every 10 entries, summarize state into `project-map.md` and archive the batch to `4-context/archive/adr-batch-NNN.md`. Keep this file lean.
+
+## Format
+
+```
+### [ADR-###] Title
+- **Date:** YYYY-MM-DD
+- **Status:** Proposed | Accepted | Superseded
+- **Context:** What was the problem or requirement?
+- **Decision:** What did we choose?
+- **Rationale:** Why is this better than alternatives?
+- **Impact:** What does this change for the future?
+```
+
+---
+
+## Active Decisions
+
+### [ADR-001] Service Layer Architecture for Django Backend
+- **Date:** 2026-03-12
+- **Status:** Accepted
+- **Context:** Django views were becoming bloated with business logic, making the code hard to test and reuse across multiple entry points (web views + API endpoints).
+- **Decision:** Enforce a strict three-layer separation: `views.py` handles only HTTP routing, `services.py` owns all business logic (writes), `selectors.py` owns complex read queries.
+- **Rationale:** Keeps each layer independently testable. Services can be called from views, management commands, or Celery tasks without duplicating logic.
+- **Impact:** No ORM `create()`/`update()` calls are permitted inside views. All new apps must follow the `models / views / services / selectors` structure defined in `django-standards.md`.

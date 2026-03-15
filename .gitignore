@@ -1,0 +1,11 @@
+# ── SDD Framework ────────────────────────────────────────────────────────────
+# These folders and files are part of the SDD scaffolding.
+# They must NOT be committed to the project repository.
+
+CLAUDE.md
+HOW-TO-USE.md
+
+
+
+# Claude Code memory
+memory/
